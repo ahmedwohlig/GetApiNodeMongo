@@ -21,8 +21,6 @@ app.get('/Country', async (req, res) => {
     }
 });
 
-
-
 /*
 app.post('/city/add', async (req, res) => {
     const found = await City.find(req.body);
