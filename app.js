@@ -8,17 +8,7 @@ app.use(express.json());
 
 const port = process.env.PORT || 3002;
 
-mongoose.connect(
-    "Http://localhost:12707/MyDB",
-    { useNewUrlParser: true, useCreateIndex: true },
-    (err) => {
-        if (err) {
-            console.log("MongoDB Connection Succeeded");
-        } else {
-            console.log("err in DB connection: " + err);
-        }
-    }
-);
+require("./src/db/conn");
 
 const Country = require("./src/models/Country");
 
@@ -33,15 +23,6 @@ app.get("/Country", async (req, res) => {
 
 app.post("/city/add", async (req, res) => {
     try {
-        console.log("body: ", req.body);
-        const found = await Country.findOne(req.body);
-        console.log(found);
-        if (found)
-            return res.status(400).json({
-                status: 400,
-                messsage: "Bad Request",
-                error: "This city already exists",
-            });
         const newCity = new Country(req.body);
         console.log(newCity);
         newCity
